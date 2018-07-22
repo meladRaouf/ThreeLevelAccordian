@@ -1,13 +1,5 @@
-//
-//  TLAViewController.swift
-//  Pods
-//
-//  Created by Amrata Baghel on 30/09/16.
-//  Copyright (c) 2016 Amrata Baghel. All rights reserved.
-//
-
 import UIKit
-
+ 
 open class TLAViewController: UIViewController {
     
     var cells: [TLACell] = [TLACell]()
@@ -32,7 +24,7 @@ open class TLAViewController: UIViewController {
     var subItemCellFont: UIFont!
     var subItemCellBackgrondColor: UIColor!
     var subItemCellTextColor: UIColor!
-    var isMultiline: Bool = true
+    var isMultiline: Bool = false
     
     //Item cell
     var itemCellHeight: CGFloat = 44.0
@@ -53,7 +45,7 @@ open class TLAViewController: UIViewController {
     var selectedSubItemIndex: Int?
     var previouslySelectedHeaderIndex: Int?
     var previouslySelectedItemIndex: Int?
-
+ 
     open override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -69,7 +61,7 @@ open class TLAViewController: UIViewController {
     }
     
     func finalizeProperties() {
-
+ 
         var cellFont: UIFont!
         var cellColor: UIColor!
         var cellBackgroundColor: UIColor!
@@ -151,7 +143,7 @@ open class TLAViewController: UIViewController {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+ 
     open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -195,17 +187,19 @@ open class TLAViewController: UIViewController {
                 }
                 
             } else {
-                headerIdx = headerIdx+1
-                if (self.cells[headerIdx] is TLASubItem) {
-                    self.cells[headerIdx].isHidden = isHidden
+            
+                for i in 0 ..<  self.cells[headerIdx].childCount {
+                if (self.cells[headerIdx + i + 1 ] is TLASubItem) {
+                    self.cells[headerIdx + i + 1 ].isHidden = isHidden
+                }
                 }
             }
         }
     }
-
+ 
 }
-
-
+ 
+ 
 extension TLAViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -249,7 +243,7 @@ extension TLAViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.accessoryType = UITableViewCellAccessoryType.none
                 cell.accessoryView = nil
             }
-
+ 
             if let _ = item as? TLAHeaderItem {
                 if let headerFont = headerCellFont {
                     cell.textLabel?.font = headerFont
@@ -320,7 +314,7 @@ extension TLAViewController: UITableViewDelegate, UITableViewDataSource {
                     previousCell?.accessoryType = UITableViewCellAccessoryType.none
                     previousCell?.accessoryView = nil
                 }
-
+ 
                 collapse(previouslySelectedHeaderIndex)
             }
             
@@ -330,7 +324,7 @@ extension TLAViewController: UITableViewDelegate, UITableViewDataSource {
                 accessoryType = .collapse
             } else {
                 accessoryType = .expand
-
+ 
                 self.selectedHeaderIndex = nil
                 self.previouslySelectedHeaderIndex = nil
             }
@@ -352,7 +346,7 @@ extension TLAViewController: UITableViewDelegate, UITableViewDataSource {
             if let previouslySelectedItemIndex = self.previouslySelectedItemIndex {
                 let previousIndexPath = IndexPath(item: previouslySelectedItemIndex, section: 0)
                 let previousCell = tableView.cellForRow(at: previousIndexPath)
-
+ 
                 if let accessoryView = accessory(for: previousIndexPath, and: .expand) {
                     previousCell?.accessoryView = accessoryView
                 } else {

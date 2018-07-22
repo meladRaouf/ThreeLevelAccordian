@@ -68,9 +68,10 @@ pod "ThreeLevelAccordian"
        			cells.append(TLACell(value: "Middle item3", imageURL: "cellImage3"))
 
 			cells.append(TLAHeaderItem(value: "Header2", imageURL: "headerImage2"))
-			cells.append(TLACell(value: "Middle item21", imageURL: "cellImage2"))
+			cells.append(TLACell(value: "Middle item21", imageURL: "cellImage2",childCount:2))
 			cells.append(TLASubItem(value: "Lower item21", imageURL: "subItemImage2"))
-			cells.append(TLACell(value: "Middle item22"))
+			cells.append(TLASubItem(value: "Lower item22", imageURL: "subItemImage2"))
+			cells.append(TLACell(value: "Middle item23"))
 
 			//Customisation properties..This part is optional
 			 let options: [TLAOption] = [
